@@ -1,0 +1,29 @@
+<pre>{{contactForm.value | json}}</pre>
+<h1> Contact form - UserId {{id}}</h1>
+<form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+    <div class="mb-4">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" class="form-control" name="name" [(ngModel)]="model.name" required #name="ngModel">
+        <div [hidden]="name.valid|| name.pristine" class="alert alert-danger">This field is required</div>
+    </div>
+    <div class="mb-4 form-check">
+        <label for="checkAdult" class="form-label">Are you over 18 years of age?</label>
+        <input type="checkbox" id="checkAdult" class="form-check-input" name="checkAdult" [(ngModel)]="model.checkAdult" #checkAdult="ngModel">    </div>
+    <div class="mb-4">
+        <label for="department" class="form-label">Department</label>
+        <select name="department" id="department" class="form-select" [(ngModel)]="model.department">
+            <option selected>Open this select menu</option>
+            <option value="marketing">Marketing</option>
+            <option value="sales">Sales</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    <div class="mb-4">
+        <label for="comment" class="form-label">Comment</label>
+        <textarea class="form-control" name="comment" id="comment" placeholder="Leave a comment ....." rows="4" [(ngModel)]="model.comment" required #comment="ngModel"></textarea>
+        <div [hidden]="comment.valid ||comment.pristine" class="alert alert-danger">This field is required</div>
+    </div>
+    <div class="d-grid gap-2 col-4 float-end">
+        <button [disabled]="contactForm.invalid" class="btn btn-info btn-lg">Send</button>
+    </div>
+</form>

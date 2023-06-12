@@ -1,0 +1,78 @@
+<pre>{{departments}}</pre>
+<h1>Contact form {{name}} {{(selectedCity$ | async)?.name}}</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
+  <div class="mb-4">
+    <label for="name" class="form-label">Name</label>
+    <input
+      type="text"
+      id="name"
+      class="form-control"
+      name="name"
+      formControlName="name"
+      required
+    />
+    <div
+      *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors?.['required']"
+      class="alert alert-danger"
+    >
+      This field is required
+    </div>
+    <div
+      *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors?.['minlength']"
+      class="alert alert-danger"
+    >
+      Name must be longer than
+      {{contactForm.get('name')?.errors?.['minlength'].requiredLength}}
+      characters
+    </div>
+  </div>
+  <div class="mb-4 form-check">
+    <label for="checkAdult" class="form-label"
+      >Are you over 18 years of age?</label
+    >
+    <input
+      type="checkbox"
+      id="checkAdult"
+      class="form-check-input"
+      name="checkAdult"
+      formControlName="checkAdult"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="department" class="form-label">Department</label>
+    <select
+      name="department"
+      id="department"
+      class="form-select"
+      formControlName="department"
+    >
+      <option selected>Open this select menu</option>
+      <option *ngFor="let department of departments" [value]="department">{{department}}</option>
+      <!-- <option value="marketing">Marketing</option>
+      <option value="sales">Sales</option>
+      <option value="other">Other</option> -->
+    </select>
+  </div>
+  <div class="mb-4">
+    <label for="comment" class="form-label">Comment</label>
+    <textarea
+      class="form-control"
+      name="comment"
+      id="comment"
+      placeholder="Leave a comment ....."
+      rows="4"
+      formControlName="comment"
+    ></textarea>
+    <div
+      *ngIf="contactForm.get('comment')?.touched && contactForm.get('comment')?.errors?.['required']"
+      class="alert alert-danger"
+    >
+      This field is required
+    </div>
+  </div>
+  <div class="d-grid gap-2 col-4 float-end">
+    <button [disabled]="contactForm.invalid" class="btn btn-info btn-lg">
+      Send
+    </button>
+  </div>
+</form>
